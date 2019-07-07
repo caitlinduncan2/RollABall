@@ -2,20 +2,25 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     public float speed;
     public Text countText;
+    public Text scoreText;
     public Text winText;
 
     private Rigidbody rb;
     private int count;
+    private int score;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
+        score = 0;
         SetCountText();
+        SetScoreText();
         winText.text = "";
     }
     void FixedUpdate()
@@ -36,18 +41,30 @@ public class PlayerController : MonoBehaviour {
         {
             other.gameObject.SetActive(false);
             count = count + 1;
+            score = score + 1;
             SetCountText();
+            SetScoreText();
+        }
+        else if (other.gameObject.CompareTag("Enemy"))
+        {
+            other.gameObject.SetActive(false);
+            count = count + 1;
+            score = score - 1;
+            SetCountText();
+            SetScoreText();
         }
     }
     void SetCountText()
     {
+        scoreText.text = "Score: " + score.ToString();
         countText.text = "Count: " + count.ToString();
         if (count >= 12)
         {
             winText.text = "You Win!";
         }
     }
+    void SetScoreText()
+    {
+        scoreText.text = "Score: " + score.ToString();
+    }
 }
-
-
-
