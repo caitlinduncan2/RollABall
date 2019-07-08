@@ -53,12 +53,16 @@ public class PlayerController : MonoBehaviour
             SetCountText();
             SetScoreText();
         }
+        if (score == 13) 
+{
+    transform.position = new Vector3(-60.0f, transform.position.y,3.0f); 
+}
     }
     void SetCountText()
     {
         scoreText.text = "Score: " + score.ToString();
         countText.text = "Count: " + count.ToString();
-        if (count >= 12)
+        if (score >= 25)
         {
             winText.text = "You Win!";
         }
