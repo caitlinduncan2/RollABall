@@ -9,19 +9,25 @@ public class PlayerController : MonoBehaviour
     public Text countText;
     public Text scoreText;
     public Text winText;
+    public Text livesText;
+    public Text loseText;
 
     private Rigidbody rb;
     private int count;
     private int score;
+    private int lives;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
         score = 0;
+        lives = 3;
         SetCountText();
         SetScoreText();
+        SetLivesText();
         winText.text = "";
+        loseText.text = "";
     }
     void FixedUpdate()
     {
@@ -50,13 +56,15 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             count = count + 1;
             score = score - 1;
+            lives = lives - 1;
             SetCountText();
             SetScoreText();
+            SetLivesText();
         }
-        if (score == 12) 
-{
-    transform.position = new Vector3(-60.0f, transform.position.y,3.0f); 
-}
+        if (score == 12)
+        {
+            transform.position = new Vector3(-60.0f, transform.position.y, 3.0f);
+        }
     }
     void SetCountText()
     {
@@ -70,5 +78,13 @@ public class PlayerController : MonoBehaviour
     void SetScoreText()
     {
         scoreText.text = "Score: " + score.ToString();
+    }
+    void SetLivesText()
+    {
+        livesText.text = "Lives: " + lives.ToString();
+        if (lives == 0)
+        {
+            loseText.text = "You Lose!";
+        }
     }
 }
